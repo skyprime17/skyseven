@@ -55,6 +55,7 @@ func main() {
 		userGroup.POST("/register", userController.Register)
 		userGroup.POST("/refreshToken", userController.RefreshToken)
 		userGroup.Use(middleware.AuthMiddleware(authMiddleware))
+		userGroup.GET("/isLoggedIn", userController.IsLoggedIn)
 		userGroup.GET("/me", userController.Me)
 
 		uploadGroup := v1.Group("upload")

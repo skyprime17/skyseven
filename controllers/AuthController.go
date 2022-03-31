@@ -32,7 +32,7 @@ func (receiver *UserController) LogIn(ctx *gin.Context) {
 		tokenPair["access_token"],
 		60*15,
 		"",
-		"http://localhost:3000/",
+		"",
 		false,
 		true,
 	)
@@ -40,8 +40,8 @@ func (receiver *UserController) LogIn(ctx *gin.Context) {
 		"refresh_token",
 		tokenPair["refresh_token"],
 		24*7*3600,
-		"/",
-		"http://localhost:3000/",
+		"",
+		"",
 		false,
 		true,
 	)
@@ -71,6 +71,10 @@ func (receiver *UserController) Me(ctx *gin.Context) {
 	}
 	ctx.JSONP(http.StatusOK, user)
 
+}
+
+func (receiver *UserController) IsLoggedIn(ctx *gin.Context) {
+	ctx.Status(http.StatusOK)
 }
 
 func (receiver *UserController) RefreshToken(ctx *gin.Context) {
