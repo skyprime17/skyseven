@@ -30,18 +30,18 @@ func (receiver *UserController) LogIn(ctx *gin.Context) {
 	ctx.SetCookie(
 		"access_token",
 		tokenPair["access_token"],
-		time.Now().Add(15*time.Minute).Second(),
+		60*15,
 		"",
-		"",
+		"http://localhost:3000/",
 		false,
 		true,
 	)
 	ctx.SetCookie(
 		"refresh_token",
 		tokenPair["refresh_token"],
-		time.Now().Add(24*7*time.Hour).Second(),
-		"",
-		"",
+		24*7*3600,
+		"/",
+		"http://localhost:3000/",
 		false,
 		true,
 	)
