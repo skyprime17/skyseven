@@ -2,7 +2,6 @@ package repository
 
 import (
 	"context"
-	"fmt"
 	"github.com/jmoiron/sqlx"
 	"pr0clone/models"
 )
@@ -33,6 +32,5 @@ func (receiver *UserRepository) CreateUser(ctx context.Context, user *models.Use
 func (receiver *UserRepository) GetUserByUsername(ctx context.Context, username string) (models.User, error) {
 	user := models.User{}
 	err := receiver.client.GetContext(ctx, &user, "SELECT * FROM user WHERE username = ?", username)
-	fmt.Println(user, err)
 	return user, err
 }
