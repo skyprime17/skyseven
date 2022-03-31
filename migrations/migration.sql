@@ -9,15 +9,16 @@ create table if not exists user
     constraint table_name_username_uindex
         unique (username)
 );
-
 create table if not exists user_upload
 (
-    id          varchar(36) not null
+    id           varchar(36) not null
         primary key,
-    user_id     varchar(36) not null,
-    file_id     varchar(36) null,
-    file_format varchar(12) null,
-    created_at  timestamp   null,
+    user_id      varchar(36) not null,
+    thumbnail_id varchar(64) null,
+    file_id      varchar(64) null,
+    created_at   timestamp   null,
+    up           int         null,
+    down         int         null,
     constraint user_upload_file_id_uindex
         unique (file_id),
     constraint user_upload_user_id_fk
