@@ -45,7 +45,9 @@ func (receiver UserUploadService) UploadFile(ctx *gin.Context, file *multipart.F
 	userUpload := models.NewUserUpload(currentUser.Id, fileName, "")
 
 	// The file is received, so let's save it
-	if err := ctx.SaveUploadedFile(file, ".\\test\\"+fileName); err != nil {
+	//currently saving in a local temp folder for development, should later be either saved in
+	// a shared docker enviroment or under /var/www/html
+	if err := ctx.SaveUploadedFile(file, ".\\uploads\\upload"+fileName); err != nil {
 		return err
 	}
 
