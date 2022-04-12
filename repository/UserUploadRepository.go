@@ -54,7 +54,7 @@ func (receiver *UserUploadRepository) GetTopUploads(ctx context.Context, uploadR
 func (receiver *UserUploadRepository) GetNewestUploads(ctx context.Context, uploadReq models.UserUploadReq) ([]models.UserUpload, error) {
 	var ups []models.UserUpload
 	err := receiver.client.SelectContext(ctx, &ups,
-		"SELECT * FROM user_upload ORDER BY created_at LIMIT ? OFFSET ?",
+		"SELECT * FROM user_upload ORDER BY created_at DESC LIMIT ? OFFSET ?",
 		uploadReq.Limit, uploadReq.Offset)
 	return ups, err
 }

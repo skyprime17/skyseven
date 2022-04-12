@@ -38,6 +38,7 @@ func main() {
 	corsConfig := cors.DefaultConfig()
 	corsConfig.AllowOrigins = []string{"http://localhost:3000"}
 	corsConfig.AllowCredentials = true
+	corsConfig.AllowFiles = true
 	router.Use(cors.New(corsConfig))
 
 	authMiddleware := auth.NewJWTProvider("secret")
@@ -52,6 +53,7 @@ func main() {
 
 		userGroup := v1.Group("user")
 		userGroup.POST("/login", userController.LogIn)
+		userGroup.POST("/logout", userController.Logout)
 		userGroup.POST("/register", userController.Register)
 		userGroup.POST("/refreshToken", userController.RefreshToken)
 		userGroup.Use(middleware.AuthMiddleware(authMiddleware))
@@ -62,7 +64,7 @@ func main() {
 		uploadGroup.GET("/top", userUploadController.GetTopPosts)
 		uploadGroup.GET("/new", userUploadController.GetNewestPosts)
 		uploadGroup.GET("/:itemId", userUploadController.GetPostById)
-		uploadGroup.Use(middleware.AuthMiddleware(authMiddleware)).POST("/", userUploadController.UploadFile)
+		uploadGroup.Use(middleware.AuthMiddleware(authMiddleware)).POST("", userUploadController.UploadFile)
 
 	}
 

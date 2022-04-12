@@ -37,6 +37,10 @@ func (receiver *UserUploadController) RemoveFileById(ctx *gin.Context) {
 
 }
 
+func (receiver *UserUploadController) VotePost(ctx *gin.Context) {
+
+}
+
 // GetTopPosts returns the top posts, max 2, with offset
 func (receiver *UserUploadController) GetTopPosts(ctx *gin.Context) {
 	var uploadReq models.UserUploadReq
