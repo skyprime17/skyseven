@@ -2,7 +2,7 @@ package auth
 
 import (
 	"errors"
-	"github.com/dgrijalva/jwt-go"
+	"github.com/golang-jwt/jwt"
 	"pr0clone/errs"
 	"time"
 )
@@ -28,9 +28,8 @@ func (maker *JWTProvider) GenerateToken(username string, expTime time.Time) (str
 func (maker *JWTProvider) VerifyToken(token string) (*JWTClaim, error) {
 	claims := &JWTClaim{}
 	tkn, err := jwt.ParseWithClaims(token, claims, func(token *jwt.Token) (interface{}, error) {
-		_, ok := token.Method.(*jwt.SigningMethodHMAC)
-		if !ok {
-			return nil, errors.New("invalid token")
+		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
+			return nil, errors.New("unexpected signing method")
 		}
 		return []byte(maker.secretKey), nil
 	})
